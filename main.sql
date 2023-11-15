@@ -107,3 +107,12 @@ create table obitos(
     data date
     foreign key (id_consultaOrTriagem) references consultatriagem(id)
 );
+
+
+-- query de login
+select rf 
+from cadastrarfuncionario
+where cpf = '12345678901'
+and data_nascimento = '29/06/2004';
+
+-- query recuperar senha 
