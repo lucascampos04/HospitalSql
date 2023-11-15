@@ -26,7 +26,7 @@ create table cadastrarpaciente (
 select * from cadastrarfuncionario;
 
 alter table cadastrarfuncionario 
-    add data_nascimento date; 
+    drop column endereco; 
 
 
 -- Registrar Funcionario
@@ -36,7 +36,7 @@ create table cadastrarfuncionario (
     rg char(10) not null unique,
     cpf char(14) not null unique, 
     genero char(1) not null,
-    endereco varchar(150) not null,
+    rua varchar(150) not null,
     bairro varchar(30) not null,
     estado varchar(20) not null,
     cidade varchar(20) not null,
@@ -49,7 +49,8 @@ create table cadastrarfuncionario (
     setor varchar(25) not null,
     turno varchar(20) not null,
     salario float not null,
-    cargo varchar(20)
+    cargo varchar(20),
+    data_nascimento date not null
 );
 
 -- Tabela intermediaria de funcionario e triagem / consulta
@@ -87,6 +88,11 @@ create table consultatriagem (
     horario_consulta_termino char(5) not null,
     valor_consulta float not null,
     formadepagamento varchar(25) not null,
+    nivelurgencia varchar(15),
+    sintomas_especificos varchar(25),
+    condicoes_pre_existentes varchar(25),
+    medicacoes varchar(25),
+    observacoes_adicionais varchar(50),
     foreign key (ra_paciente) references cadastrarpaciente(ra),
     foreign key (rf_medico) references cadastrarfuncionario(rf),
     foreign key (rf_enfermeiro) references cadastrarfuncionario(rf)
