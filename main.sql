@@ -20,14 +20,8 @@ create table cadastrarpaciente (
     complemento varchar(25),
     email varchar(200) not null,
     telefone char(12),
-    data_nascimento date not null,
+    data_nascimento date not null
 );
-
-select * from cadastrarfuncionario;
-
-alter table cadastrarfuncionario 
-    drop column endereco; 
-
 
 -- Registrar Funcionario
 create table cadastrarfuncionario (
@@ -86,8 +80,6 @@ create table consultatriagem (
     horario_consulta char(5) not null,
     horario_consulta_inicio char(5) not null,
     horario_consulta_termino char(5) not null,
-    valor_consulta float not null,
-    formadepagamento varchar(25) not null,
     nivelurgencia varchar(15),
     sintomas_especificos varchar(25),
     condicoes_pre_existentes varchar(25),
@@ -104,9 +96,224 @@ create table obitos(
     causaDaMorte varchar(40) not null,
     id_consultaOrTriagem int not null,
     horaDoObito char(5) not null,
-    data date
+    data date,
     foreign key (id_consultaOrTriagem) references consultatriagem(id)
 );
+
+-- INSERT 
+
+-- cadastrar paciente 
+insert into cadastrarpaciente(ra, 
+    nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento, 
+    email, telefone, 
+    data_nascimento)
+values (
+	auto_increment.nextval,
+    'Lucas', 1234567890, 45602588675,'M',
+    'Rua aaa', 'Jardim bbc', 'SP', 'Embu', 06587452,11, 'Complemento',
+    'Email@email.com', 11950735140,
+    to_date('2020-07-20', 'YYYY/MM/DD')
+);
+
+-- Paciente 1
+INSERT INTO cadastrarpaciente (
+    ra, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'João Silva', 123456789, 98765432100, 'M', 'Rua A', 'Centro', 'SP', 'São Paulo', 01234567, 123, 'Apto 101', 'joao@email.com', 11987654321, to_date('1990-03-15', 'YYYY-MM-DD')
+);
+
+-- Paciente 2
+INSERT INTO cadastrarpaciente (
+    ra, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Maria Oliveira', 987654321, 12309876543, 'F', 'Rua B', 'Jardim', 'RJ', 'Rio de Janeiro', 04567890, 456, 'Casa 20', 'maria@email.com', 11876543210, to_date('1985-08-22', 'YYYY-MM-DD')
+);
+
+-- Paciente 3
+INSERT INTO cadastrarpaciente (
+    ra, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Carlos Santos', 456789012, 56789012345, 'M', 'Rua C', 'Barra', 'BA', 'Salvador', 03456789, 789, 'Apto 303', 'carlos@email.com', 11901234567, to_date('1998-12-10', 'YYYY-MM-DD')
+);
+
+-- Paciente 4
+INSERT INTO cadastrarpaciente (
+    ra, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Ana Oliveira', 789012345, 12398765432, 'F', 'Rua D', 'Copacabana', 'RJ', 'Rio de Janeiro', 06789012, 101, 'Casa 15', 'ana@email.com', 11901234567, to_date('1992-05-18', 'YYYY-MM-DD')
+);
+
+
+-- cadastrar funcionario
+
+-- Médico 1
+INSERT INTO cadastrarfuncionario (
+    rf, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, formacao, setor, turno, salario, cargo, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Dr. Roberto Santos', '1234567890', '98765432101', 'M',
+    'Avenida Principal', 'Centro', 'SP', 'São Paulo', '01234567', '101', 'Sala 3',
+    'roberto@email.com', '11987654321', 'Médico', 'Cardiologia', 'Manhã', 15000.00, 'Cardiologista',
+    to_date('1975-02-10', 'YYYY-MM-DD')
+);
+
+-- Enfermeiro 1
+INSERT INTO cadastrarfuncionario (
+    rf, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, formacao, setor, turno, salario, cargo, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Enf. Ana Oliveira', '987654321', '12309876543', 'F',
+    'Rua B', 'Jardim', 'RJ', 'Rio de Janeiro', '04567890', '456', 'Casa 20',
+    'ana_enfermeiro@email.com', '11876543210', 'Enfermagem', 'Emergência', 'Noite', 6000.00, 'Enfermeiro',
+    to_date('1985-08-22', 'YYYY-MM-DD')
+);
+
+-- Médico 2
+INSERT INTO cadastrarfuncionario (
+    rf, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, formacao, setor, turno, salario, cargo, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Dra. Maria Silva', '456789012', '56789012345', 'F',
+    'Rua C', 'Barra', 'BA', 'Salvador', '03456789', '789', 'Apto 303',
+    'maria@email.com', '11901234567', 'Médico', 'Pediatria', 'Tarde', 12000.00, 'Pediatra',
+    to_date('1998-12-10', 'YYYY-MM-DD')
+);
+
+-- Enfermeiro 2
+INSERT INTO cadastrarfuncionario (
+    rf, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, formacao, setor, turno, salario, cargo, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Enf. Carlos Santos', '890123456', '21098765432', 'M',
+    'Rua D', 'Copacabana', 'RJ', 'Rio de Janeiro', '06789012', '101', 'Casa 15',
+    'carlos_enfermeiro@email.com', '11901234567', 'Enfermagem', 'UTI', 'Noite', 5500.00, 'Enfermeiro',
+    to_date('1992-05-18', 'YYYY-MM-DD')
+);
+
+-- Médico 3
+INSERT INTO cadastrarfuncionario (
+    rf, nome, rg, cpf, genero,
+    rua, bairro, estado, cidade, cep, numero, complemento,
+    email, telefone, formacao, setor, turno, salario, cargo, data_nascimento
+) VALUES (
+    auto_increment.nextval, 'Dr. Lucas Pereira', '234567890', '87654321098', 'M',
+    'Rua E', 'Morumbi', 'SP', 'São Paulo', '02345678', '567', 'Apto 502',
+    'lucas@email.com', '11987654321', 'Médico', 'Ortopedia', 'Manhã', 16000.00, 'Ortopedista',
+    to_date('1987-11-30', 'YYYY-MM-DD')
+);
+
+
+select rf, cargo from cadastrarfuncionario;
+select ra from cadastrarpaciente;
+
+-- consulta / triagem
+
+alter table consultatriagem
+    drop column FORMADEPAGAMENTO;
+
+
+INSERT INTO consultatriagem (
+    id, ra_paciente, tipoconsulta, alergias, febre, tosse, fadiga,
+    nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes,
+    dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal,
+    rf_enfermeiro, horario_triagem, data, rf_medico, horario_consulta,
+    horario_consulta_inicio, horario_consulta_termino, nivelurgencia,
+    sintomas_especificos, condicoes_pre_existentes, medicacoes,
+    observacoes_adicionais
+) VALUES (
+    auto_increment.nextval, 3, 'triagem', 'Não', 'Não', 'Não', 'Não', 'Não',
+    'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 8, '08:30',
+    to_date('2023-11-17', 'YYYY/MM/DD'), 7, '09:00', '09:15', '09:30', 'Normal',
+    'Nenhum', 'Nenhuma', 'Nenhuma', 'Nenhuma'
+);
+
+INSERT INTO consultatriagem (
+    id, ra_paciente, tipoconsulta, alergias, febre, tosse, fadiga,
+    nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes,
+    dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal,
+    rf_enfermeiro, horario_triagem, data, rf_medico, horario_consulta,
+    horario_consulta_inicio, horario_consulta_termino, nivelurgencia,
+    sintomas_especificos, condicoes_pre_existentes, medicacoes,
+    observacoes_adicionais
+) VALUES (
+    auto_increment.nextval 4, 'Consulta', 'Não', 'Não', 'Não', 'Não', 'Não',
+    'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 8, '10:45',
+    to_date('2023-11-17', 'YYYY/MM/DD'), 9, '11:30', '11:45', '12:00', 'Urgente',
+    'Dor no peito', 'Hipertensão', 'Aspirina', 'Paciente relatou dor intensa no peito.'
+);
+
+INSERT INTO consultatriagem (
+    id, ra_paciente, tipoconsulta, alergias, febre, tosse, fadiga,
+    nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes,
+    dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal,
+    rf_enfermeiro, horario_triagem, data, rf_medico, horario_consulta,
+    horario_consulta_inicio, horario_consulta_termino, nivelurgencia,
+    sintomas_especificos, condicoes_pre_existentes, medicacoes,
+    observacoes_adicionais
+) VALUES (
+    auto_increment.nextval, 5, 'Consulta', 'Não', 'Sim', 'Sim', 'Não', 'Sim',
+    'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 8, '14:00',
+    to_date('2023-11-17', 'YYYY/MM/DD'), 11, '14:30', '14:45', '15:00', 'Normal',
+    'Febre e tosse', 'Nenhuma', 'Tylenol', 'Criança com sintomas gripais.'
+);
+
+INSERT INTO consultatriagem (
+    id, ra_paciente, tipoconsulta, alergias, febre, tosse, fadiga,
+    nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes,
+    dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal,
+    rf_enfermeiro, horario_triagem, data, rf_medico, horario_consulta,
+    horario_consulta_inicio, horario_consulta_termino, nivelurgencia,
+    sintomas_especificos, condicoes_pre_existentes, medicacoes,
+    observacoes_adicionais
+) VALUES (
+    auto_increment.nextval, 6, 'Consulta', 'Não', 'Não', 'Não', 'Não', 'Não',
+    'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 10, '16:30',
+    to_date('2023-11-17', 'YYYY/MM/DD'), 11, '17:15', '17:30', '17:45', 'Normal',
+    'Nenhum', 'Nenhuma', 'Nenhuma', 'Exame de rotina.'
+);
+
+INSERT INTO consultatriagem (
+    id, ra_paciente, tipoconsulta, alergias, febre, tosse, fadiga,
+    nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes,
+    dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal,
+    rf_enfermeiro, horario_triagem, data, rf_medico, horario_consulta,
+    horario_consulta_inicio, horario_consulta_termino, nivelurgencia,
+    sintomas_especificos, condicoes_pre_existentes, medicacoes,
+    observacoes_adicionais
+) VALUES (
+    auto_increment.nextval, 23, 'Consulta', 'Não', 'Não', 'Não', 'Não', 'Não',
+    'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 'Não', 10, '09:00',
+    to_date('2023-11-17', 'YYYY/MM/DD'), 11, '09:30', '09:45', '10:00', 'Normal',
+    'Visão embaçada', 'Nenhuma', 'Nenhuma', 'Exame de vista de rotina.'
+);
+
+-- SELECTS 
+
+-- select checar consultas/pacientes 
+select ra_paciente, data, 
+horario_consulta, horario_consulta_inicio, horario_consulta_termino, tipoconsulta  
+from consultatriagem 
+where tipoconsulta = 'Consulta';
+
+-- select checar triagem 
+select ra_paciente, data, 
+horario_triagem, alergias, febre, tosse, nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes, dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal from consultatriagem  where tipoconsulta = 'triagem';
+
+-- select de obitos 
+select * from obitos;
 
 
 -- query de login
