@@ -78,17 +78,22 @@ create table consultatriagem (
     data date not null,
     rf_medico int not null,
     horario_consulta char(5) not null,
-    horario_consulta_inicio char(5) not null,
+    horario_consulta_inicio char(5),
     horario_consulta_termino char(5) not null,
     nivelurgencia varchar(15),
     sintomas_especificos varchar(25),
     condicoes_pre_existentes varchar(25),
     medicacoes varchar(25),
     observacoes_adicionais varchar(50),
+    status VARCHAR(10) CHECK (status IN ('Realizado', 'Cancelado'))
     foreign key (ra_paciente) references cadastrarpaciente(ra),
     foreign key (rf_medico) references cadastrarfuncionario(rf),
     foreign key (rf_enfermeiro) references cadastrarfuncionario(rf)
 );
+
+
+ALTER TABLE consultatriagem
+MODIFY horario_consulta_inicio CHAR(5);
 
 -- Obitos
 create table obitos(
@@ -151,6 +156,9 @@ INSERT INTO cadastrarpaciente (
 ) VALUES (
     auto_increment.nextval, 'Ana Oliveira', 789012345, 12398765432, 'F', 'Rua D', 'Copacabana', 'RJ', 'Rio de Janeiro', 06789012, 101, 'Casa 15', 'ana@email.com', 11901234567, to_date('1992-05-18', 'YYYY-MM-DD')
 );
+
+ALTER TABLE consultatriagem
+ADD status VARCHAR(10) CHECK (status IN ('Realizado', 'Cancelado'));
 
 
 -- cadastrar funcionario
@@ -303,14 +311,10 @@ INSERT INTO consultatriagem (
 -- SELECTS 
 
 -- select checar consultas/pacientes 
-select ra_paciente, data, 
-horario_consulta, horario_consulta_inicio, horario_consulta_termino, tipoconsulta  
-from consultatriagem 
-where tipoconsulta = 'Consulta';
+select ra_paciente, data, horario_consulta, horario_consulta_inicio, horario_consulta_termino, tipoconsulta  from consultatriagem where tipoconsulta = 'Consulta';
 
 -- select checar triagem 
-select ra_paciente, data, 
-horario_triagem, alergias, febre, tosse, nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes, dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal from consultatriagem  where tipoconsulta = 'triagem';
+select ra_paciente, data, horario_triagem, alergias, febre, tosse, nausea, vomitos, diarreia, calafrios, dorsnasarticulacoes, dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal from consultatriagem  where tipoconsulta = 'triagem';
 
 -- select de obitos 
 select * from obitos;
@@ -322,4 +326,3 @@ from cadastrarfuncionario
 where cpf = '12345678901'
 and data_nascimento = '29/06/2004';
 
--- query recuperar senha 
