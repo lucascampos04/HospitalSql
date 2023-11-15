@@ -11,7 +11,7 @@ create table cadastrarpaciente (
     rg char(10) not null unique,
     cpf char(14) not null unique, 
     genero char(1) not null,
-    endereco varchar(150) not null,
+    rua varchar(20) not null,
     bairro varchar(30) not null,
     estado varchar(20) not null,
     cidade varchar(20) not null,
@@ -19,8 +19,15 @@ create table cadastrarpaciente (
     numero varchar(5) not null,
     complemento varchar(25),
     email varchar(200) not null,
-    telefone char(12)
+    telefone char(12),
+    data_nascimento date not null,
 );
+
+select * from cadastrarfuncionario;
+
+alter table cadastrarfuncionario 
+    add data_nascimento date; 
+
 
 -- Registrar Funcionario
 create table cadastrarfuncionario (
@@ -85,95 +92,12 @@ create table consultatriagem (
     foreign key (rf_enfermeiro) references cadastrarfuncionario(rf)
 );
 
-
--- INSERT
-
--- INSERT PACIENTES
-insert into cadastrarpaciente (ra, nome, rg, cpf, genero,
-    endereco, bairro, estado, cidade, cep,
-    numero, complemento,
-    email, telefone)
-values(
-    auto_increment.nextval, 'Lucas Oliveira', 1234567890, 56432122123, 'M',
-    'Rua XABC', 'Jardim CCC', 'SP', 'Taboão da serra', 12345678,
-    11, 'Complemento',
-    'email@email.com', 950735140
+-- Obitos
+create table obitos(
+    id int primary key,
+    causaDaMorte varchar(40) not null,
+    id_consultaOrTriagem int not null,
+    horaDoObito char(5) not null,
+    data date
+    foreign key (id_consultaOrTriagem) references consultatriagem(id)
 );
-
-insert into cadastrarpaciente (ra, nome, rg, cpf, genero,
-    endereco, bairro, estado, cidade, cep,
-    numero, complemento,
-    email, telefone)
-values(
-    auto_increment.nextval, 'Ana Silva', 9876543210, 98765432101, 'F',
-    'Avenida YZ', 'Centro', 'RJ', 'Rio de Janeiro', 54321098,
-    42, 'Apartamento 301',
-    'ana@email.com', 912345678
-);
-
--- INSERT FUNCIONÁRIOS
-insert into cadastrarfuncionario (rf, nome, rg, cpf, genero,
-    endereco, bairro, estado, cidade, cep,
-    numero, complemento,
-    email, telefone,
-    formacao, setor, turno,
-    salario, cargo)
-values(
-    auto_increment.nextval, 'Lucas Oliveira Campos', 1234567893, 21432122123, 'M',
-    'Rua Xsae', 'Jardim xsa', 'UK', 'Cidade OL', 1234321,
-    11, 'Complemento',
-    'email@email.com', 950735140,
-    'Oftamologista', 'Setor sul', 'Noturno',
-    10.000, 'Medico'
-);
-
-insert into cadastrarfuncionario (rf, nome, rg, cpf, genero,
-    endereco, bairro, estado, cidade, cep,
-    numero, complemento,
-    email, telefone,
-    formacao, setor, turno,
-    salario, cargo)
-values(
-    auto_increment.nextval, 'Ana Souza Silva', '987654321', '987.654.321-02', 'F',
-    'Avenida ABC', 'Centro', 'RJ', 'Rio de Janeiro', '54321',
-    '42', 'Apartamento 302',
-    'ana.souza@email.com', '912345679',
-    'Enfermeiro', 'Setor Norte', 'Diurno',
-    8.000, 'Enfermeiro'
-);
-
--- INSERT CONSULTA/TRIAGEM
-insert into consultatriagem (
-    id, ra_paciente, tipoconsulta,
-    alergias, febre, tosse, fadiga, nausea, vomitos,
-    diarreia, calafrios, dorsnasarticulacoes,
-    dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal,
-    rf_enfermeiro, horario_triagem, data,
-    rf_medico, horario_consulta, horario_consulta_inicio, horario_consulta_termino,
-    valor_consulta, formadepagamento
-)
-values (
-    auto_increment.nextval, 1, 'Consulta',
-    'Não', 'Não', 'Sim', 'Não', 'Sim', 'Não',
-    'Não', 'Sim', 'Não',
-    'Não', 'Sim', 'Não',
-    42, '08:30', TO_DATE('2023-11-14', 'YYYY-MM-DD'),
-    41, '10:00', '10:15', '11:00',
-    150.00, 'Cartão de Crédito'
-);
-
--- SELECT 
-
--- PACIENTE
-select * from cadastrarpaciente;
-
--- TRIAGEM
-select id, ra_paciente, rf_enfermeiro, horario_triagem, data, alergias, febre, tosse, fadiga, nausea, vomitos, 
-    diarreia, calafrios, dorsnasarticulacoes, 
-	dificuldaderespiratoria, perdodopaladarouolfato, congestaonasal
-from
-	consultatriagem;
-
--- CONSULTA
-select id, ra_paciente, rf_medico, tipoconsulta, horario_consulta, horario_consulta_inicio, horario_consulta_termino, valor_consulta, formadepagamento
-from consultatriagem;		
