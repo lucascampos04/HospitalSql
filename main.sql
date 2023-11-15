@@ -18,7 +18,6 @@ create table cadastrarpaciente (
     cep char(8) not null,
     numero varchar(5) not null,
     complemento varchar(25),
-    formadepagamento varchar(30) not null,
     email varchar(200) not null,
     telefone char(12)
 );
@@ -37,7 +36,6 @@ create table cadastrarfuncionario (
     cep char(8) not null,
     numero varchar(5) not null,
     complemento varchar(25),
-    formadepagamento varchar(30) not null,
     email varchar(200),
     telefone char(12),
     formacao varchar(60) not null,
@@ -94,37 +92,37 @@ create table consultatriagem (
 insert into cadastrarpaciente (ra, nome, rg, cpf, genero,
     endereco, bairro, estado, cidade, cep,
     numero, complemento,
-    formadepagamento, email, telefone)
+    email, telefone)
 values(
     auto_increment.nextval, 'Lucas Oliveira', 1234567890, 56432122123, 'M',
     'Rua XABC', 'Jardim CCC', 'SP', 'Taboão da serra', 12345678,
     11, 'Complemento',
-    'Pix', 'email@email.com', 950735140
+    'email@email.com', 950735140
 );
 
 insert into cadastrarpaciente (ra, nome, rg, cpf, genero,
     endereco, bairro, estado, cidade, cep,
     numero, complemento,
-    formadepagamento, email, telefone)
+    email, telefone)
 values(
     auto_increment.nextval, 'Ana Silva', 9876543210, 98765432101, 'F',
     'Avenida YZ', 'Centro', 'RJ', 'Rio de Janeiro', 54321098,
     42, 'Apartamento 301',
-    'Boleto', 'ana@email.com', 912345678
+    'ana@email.com', 912345678
 );
 
 -- INSERT FUNCIONÁRIOS
 insert into cadastrarfuncionario (rf, nome, rg, cpf, genero,
     endereco, bairro, estado, cidade, cep,
     numero, complemento,
-    formadepagamento, email, telefone,
+    email, telefone,
     formacao, setor, turno,
     salario, cargo)
 values(
     auto_increment.nextval, 'Lucas Oliveira Campos', 1234567893, 21432122123, 'M',
     'Rua Xsae', 'Jardim xsa', 'UK', 'Cidade OL', 1234321,
     11, 'Complemento',
-    'Pix', 'email@email.com', 950735140,
+    'email@email.com', 950735140,
     'Oftamologista', 'Setor sul', 'Noturno',
     10.000, 'Medico'
 );
@@ -132,14 +130,14 @@ values(
 insert into cadastrarfuncionario (rf, nome, rg, cpf, genero,
     endereco, bairro, estado, cidade, cep,
     numero, complemento,
-    formadepagamento, email, telefone,
+    email, telefone,
     formacao, setor, turno,
     salario, cargo)
 values(
     auto_increment.nextval, 'Ana Souza Silva', '987654321', '987.654.321-02', 'F',
     'Avenida ABC', 'Centro', 'RJ', 'Rio de Janeiro', '54321',
     '42', 'Apartamento 302',
-    'Boleto', 'ana.souza@email.com', '912345679',
+    'ana.souza@email.com', '912345679',
     'Enfermeiro', 'Setor Norte', 'Diurno',
     8.000, 'Enfermeiro'
 );
