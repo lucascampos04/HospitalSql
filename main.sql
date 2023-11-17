@@ -87,7 +87,7 @@ CREATE TABLE consultatriagem (
     observacoes_adicionais varchar(50),
     situacao VARCHAR(10) DEFAULT 'Realizado',
     CHECK((horario_consulta_inicio IS NOT NULL AND horario_consulta_termino IS NOT NULL) 
-    OR (horario_consulta_inicio IS NULL AND status = 'Cancelado')),
+    OR (horario_consulta_inicio IS NULL AND situacao = 'Cancelado')),
     FOREIGN KEY (ra_paciente) REFERENCES cadastrarpaciente(ra),
     FOREIGN KEY (rf_medico) REFERENCES cadastrarfuncionario(rf),
     FOREIGN KEY (rf_enfermeiro) REFERENCES cadastrarfuncionario(rf)
